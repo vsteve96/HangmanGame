@@ -18,3 +18,11 @@ def display_word(word, guessed_letters):
     for letter in word:
         display += letter if letter in guessed_letters else "_"
     return display
+
+def get_guess():
+    while True:
+        guess = input("Enter a letter: ").lower()
+        if guess.isalpha() and len(guess) == 1:
+            return guess
+        else:
+            print("Invalid input. Please enter a single letter.")
