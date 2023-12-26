@@ -62,4 +62,14 @@ def choose_difficulty():
         return 8
     else:
         print("Invalid choice. Defaulting to Medium difficulty.")
-        return 10    
+        return 10
+
+def display_game_state(word, guessed_letters, guessed_words, incorrect_guesses, max_incorrect_guesses, difficulty):
+    current_display = display_word(word, guessed_letters)
+    guessed_words_display = ', '.join(guessed_words) if len(guessed_words) > 1 else ''.join(guessed_words)
+    guessed_letters_display = ', '.join(guessed_letters)
+
+    print(f"\nWord: {current_display}")
+    print(f"Guesses: {guessed_letters_display}{', ' if guessed_letters_display and guessed_words_display else ''}{guessed_words_display}")
+    print(f"Attempts Left: {max_incorrect_guesses - incorrect_guesses}")
+    display_hangman(incorrect_guesses, max_incorrect_guesses)
