@@ -45,3 +45,21 @@ def show_instructions():
     print("Be careful! You have limited attempts before the hangman is complete.")
     print("Good luck!\n")
     return input("Do you want to continue to the game? (y/n): ").lower() == 'y'
+
+def choose_difficulty():
+    print("Choose a difficulty level:")
+    print("1: Easy (12 guesses)")
+    print("2: Medium (10 guesses)")
+    print("3: Hard (8 guesses)")
+
+    difficulty_choice = input("Enter your choice (1, 2, or 3): ")
+
+    if difficulty_choice == '1':
+        return 12
+    elif difficulty_choice == '2':
+        return 10
+    elif difficulty_choice == '3':
+        return 8
+    else:
+        print("Invalid choice. Defaulting to Medium difficulty.")
+        return 10    
