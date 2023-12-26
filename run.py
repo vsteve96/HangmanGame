@@ -64,12 +64,60 @@ def choose_difficulty():
         print("Invalid choice. Defaulting to Medium difficulty.")
         return 10
 
-def display_game_state(word, guessed_letters, guessed_words, incorrect_guesses, max_incorrect_guesses, difficulty):
+def display_game_state(word, guessed_letters, guessed_words, incorrect_guesses, 
+max_incorrect_guesses, difficulty):
     current_display = display_word(word, guessed_letters)
     guessed_words_display = ', '.join(guessed_words) if len(guessed_words) > 1 else ''.join(guessed_words)
     guessed_letters_display = ', '.join(guessed_letters)
 
     print(f"\nWord: {current_display}")
-    print(f"Guesses: {guessed_letters_display}{', ' if guessed_letters_display and guessed_words_display else ''}{guessed_words_display}")
+    print(f"Guesses: {guessed_letters_display}{', ' if guessed_letters_display and 
+    guessed_words_display else ''}{guessed_words_display}")
     print(f"Attempts Left: {max_incorrect_guesses - incorrect_guesses}")
     display_hangman(incorrect_guesses, max_incorrect_guesses)
+
+def hangman():
+    print("\nWelcome to Hangman!")
+    show_instructions_flag = input("Do you want to see the instructions? (y/n): ").lower() == 'y'
+    
+    if show_instructions_flag:
+        show_instructions()
+        
+    secret_word = choose_word()
+    guessed_letters = []
+    guessed_words = []
+    incorrect_guesses = 0
+    difficulty = choose_difficulty()
+    max_incorrect_guesses = difficulty
+
+    while incorrect_guesses < max_incorrect_guesses:
+        display_game_state(secret_word, guessed_letters, guessed_words, incorrect_guesses,
+        max_incorrect_guesses, difficulty)
+        guess = get_guess(secret_word, guessed_letters)
+
+        if len(guess) == 1:
+            if guess in guessed_letters:
+                print("You've already made that guess. Please make another guess.")
+            else:
+                guessed_letters.append(guess)
+                if guess not in secret_word:
+                    incorrect_guesses += 1
+        elif len(guess) > 1 and guess.isalpha():
+            if guess == secret_word:
+                print("Congratulations! You guessed the word!")
+                break
+            elif guess in guessed_words:
+                print("You've already guessed that word. Try again.")
+            else:
+                print("Incorrect guess. Try again.")
+                if guess.lower() not in [word.lower() for word in guessed_words]:
+                    guessed_words.append(guess)  # Append only if not already guessed
+                    incorrect_guesses += 1
+        else:
+            print("Invalid input. Please enter a single letter or the whole word.")
+
+    if incorrect_guesses == max_incorrect_guesses:
+        print(f"\nSorry, you ran out of attempts. The correct word was '{secret_word}'.")
+
+if __name__ == "__main__":
+    hangman()
