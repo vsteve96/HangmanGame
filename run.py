@@ -1,8 +1,6 @@
 import random
 from hangman_parts import display_hangman
 
-incorrect_guesses = 0
-
 def choose_word():
     words = ["python", "hangman", "developer", "programming", "coding", "javascript",
              "software", "scripts", "terminal", "ubuntu"]
@@ -20,11 +18,11 @@ def get_guess():
             print("Invalid input. Please enter a single letter or the whole word.")
 
 def instructions():
-        print("Try to guess the secret word by entering one letter at a time.")
-        print("If you think you know the whole word, you can enter the entire word.")
-        print("Be careful! You have limited attempts before you get hanged!")
-        print("You can choose from three difficulty levels, each with a different number of guessing attempts.")
-        print("Good luck!\n")
+    print("Try to guess the secret word by entering one letter at a time.")
+    print("If you think you know the whole word, you can enter the entire word.")
+    print("Be careful! You have limited attempts before you get hanged!")
+    print("You can choose from three difficulty levels, each with a different number of guessing attempts.")
+    print("Good luck!\n")
     
 def choose_difficulty():
     print("Choose a difficulty level:")
@@ -58,7 +56,9 @@ def display_game_state(secret_word, guessed_letters, guessed_words, incorrect_gu
     and guessed_words_display are not empty. 
     Otherwise, it adds an empty string.
     """
+    # Print guessed letters and guessed words with appropriate formatting
     print(f"Guesses: {guessed_letters_display}{', ' if guessed_letters_display and guessed_words_display else ''}{guessed_words_display}")
+    # Print the number of incorrect guesses remaining and display the hangman
     print(f"Incorrect guesses remaining: {max_incorrect_guesses - incorrect_guesses}")
     display_hangman(incorrect_guesses, max_incorrect_guesses)        
 
@@ -68,6 +68,8 @@ def hangman():
 
     """
     print("\nWelcome to Hangman!")
+
+    incorrect_guesses = 0
 
     show_instructions = input("Do you want to see the instructions? (y/n): ").lower()
     if show_instructions == 'y':
@@ -79,21 +81,21 @@ def hangman():
         secret_word = choose_word()
         guessed_letters = []
         guessed_words = []
-        incorrect_guesses = 0
+        
         # Set the return value from choose_difficulty function as the maximum 
         # incorrect guesses allowed
         max_incorrect_guesses = choose_difficulty()
-
+        
         while incorrect_guesses < max_incorrect_guesses:
-            display_game_state(secret_word, guessed_letters, guessed_words, \
-            incorrect_guesses, max_incorrect_guesses)
+            display_game_state(secret_word, guessed_letters, guessed_words, incorrect_guesses, max_incorrect_guesses)
 
             guess = get_guess()
 
+            
             if len(guess) == 1:
-                process_single_letter_guess(guess, secret_word, guessed_letters, incorrect_guesses)
+                incorrect_guesses = process_single_letter_guess(guess, secret_word, guessed_letters, incorrect_guesses)
             elif len(guess) > 1 and guess.isalpha():
-                process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesses)
+                incorrect_guesses = process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesses)
             else:
                 print("Invalid input. Please enter a single letter or the whole word.")
 
@@ -111,10 +113,11 @@ def hangman():
 def process_single_letter_guess(guess, secret_word, guessed_letters, incorrect_guesses):
     if guess in guessed_letters:
         print("You've already made that guess. Please make another guess.")
+        return incorrect_guesses
     else:
         guessed_letters.append(guess)
         if guess not in secret_word:
-            incorrect_guesses += 1
+            return incorrect_guesses + 1
 
 def process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesses):
     if guess == secret_word:
@@ -122,11 +125,11 @@ def process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesse
         exit()
     elif guess in guessed_words:
         print("You've already guessed that word. Try again.")
+        return incorrect_guesses
     else:
         print("Incorrect guess. Try again.")
         guessed_words.append(guess)
-        incorrect_guesses += 1
+        return incorrect_guesses + 1
 
-# Ensure the hangman function is only executed when script run directly
 if __name__ == "__main__":
     hangman()
