@@ -11,15 +11,8 @@ def display_hangman(incorrect_guesses, max_incorrect_guesses):
         "  ____\n |    |\n      |\n      |\n      |\n      |\n______|",  
         "  ____\n |    |\n O    |\n      |\n      |\n      |\n______|",  
         "  ____\n |    |\n O    |\n |    |\n      |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|    |\n      |\n      |\n______|",  
         "  ____\n |    |\n O    |\n/|\\   |\n      |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|\\   |\n/     |\n      |\n______|",  
         "  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n______|",  
-        "  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n______|" 
     ]
 ]
     # Check if there are still available hangman parts based on the incorrect guesses

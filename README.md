@@ -1,32 +1,91 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Hangman Game
 
-Welcome,
+## Overview
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+Welcome to the Hangman Game! This project implements the classic Hangman word guessing game in Python. The game challenges players to guess a secret word by suggesting letters or guessing the entire word. Incorrect guesses lead to the gradual drawing of a hangman, and players must solve the word before running out of attempts.
 
-## Reminders
+## Features
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+- **Random Word Selection:** The game selects a random word from a predefined list, ensuring variety and unpredictability.
 
-## Creating the Heroku app
+- **Difficulty Levels:** Players can choose from three difficulty levels, each with a different number of allowed incorrect guesses.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+- **User-Friendly Interface:** The game provides a clear and user-friendly interface, prompting players for input and displaying the current game state.
 
-1. `heroku/python`
-2. `heroku/nodejs`
+- **Instructions:** Players have the option to view instructions at the beginning of the game, explaining the rules and objectives.
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+## How to Play
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+1. Run the script.
+2. Choose whether to view instructions.
+3. Decide whether to continue to the game.
+4. Guess letters or the entire word to reveal the secret word.
+5. Be cautious with incorrect guesses, as they lead to the drawing of the hangman.
+6. Win by correctly guessing the word or lose by running out of attempts.
 
-Connect your GitHub repository and deploy as normal.
+## Getting Started
 
-## Constraints
+Clone the repository to your local machine and run the script using a Python interpreter. Ensure you have the required dependencies, including the `hangman_parts` module for displaying the hangman.
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
 
----
+# Development Process
 
-Happy coding!
+**Input Validations**
+
+Ensuring a smooth and error-free user experience is a crucial aspect of the Hangman game development. The input validation process has been carefully implemented to handle various scenarios and provide helpful feedback to the player.
+
+**Single Letter Guesses**
+
+Players are prompted to enter a letter when making single letter guesses. The input validation for single letter guesses covers the following:
+
+- **Non-Empty Input:** The program checks whether the user has entered a letter, and the input must not be empty.
+
+- **Alphabetic Characters:** The input must consist of alphabetic characters only.
+
+- **Single Character Length:** The length of the input should be exactly one character.
+
+**Whole Word Guesses**
+
+For whole word guesses, where the player attempts to guess the entire word, the input validation includes:
+
+- **Non-Empty Input:** Similar to single letter guesses, the input must not be empty.
+
+- **Alphabetic Characters:** The input must consist of alphabetic characters only.
+
+- **Length Check:** The length of the input can be greater than one, but it should still be a valid word.
+
+**User Feedback**
+
+In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.
+
+```python
+def get_guess():
+    while True:
+        guess = input("Enter a letter or the whole word: ").lower()
+        if guess and ((guess.isalpha() and len(guess) == 1) or (len(guess) > 1 and guess.isalpha())):
+            return guess
+        else:
+            print("Invalid input. Please enter a single letter or the whole word.")
+
+**Single Letter Guesses**
+Players are prompted to enter a letter when making single letter guesses. The input validation for single letter guesses covers the following:
+
+Non-Empty Input: The program checks whether the user has entered a letter, and the input must not be empty.
+
+Alphabetic Characters: The code ensures that the input must consist of alphabetic characters only.
+
+Single Character Length: The length of the input should be exactly one character, to ensure the single character guesses are being handled correctly.
+
+**Whole Word Guesses**
+For whole word guesses, where the player attempts to guess the entire word, the input validation includes:
+
+Non-Empty Input: Similar to single letter guesses, the input must not be empty.
+
+Alphabetic Characters: The input must consist of alphabetic characters only.
+
+Length Check: The length of the input can be greater than one, but it should still be a valid word.
+
+**User Feedback**
+In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.
+
+By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for players of all skill levels.
