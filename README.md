@@ -27,7 +27,6 @@ Welcome to the Hangman Game! This project implements the classic Hangman word gu
 
 Clone the repository to your local machine and run the script using a Python interpreter. Ensure you have the required dependencies, including the `hangman_parts` module for displaying the hangman.
 
-
 # Development Process
 
 **Input Validations**
