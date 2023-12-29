@@ -67,25 +67,6 @@ def get_guess():
             print("Invalid input. Please enter a single letter or the whole word.")
 ```
 
-**Single Letter Guesses**
-Players are prompted to enter a letter when making single letter guesses. The input validation for single letter guesses covers the following:
+By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for the players.
 
-Non-Empty Input: The program checks whether the user has entered a letter, and the input must not be empty.
-
-Alphabetic Characters: The code ensures that the input must consist of alphabetic characters only.
-
-Single Character Length: The length of the input should be exactly one character, to ensure the single character guesses are being handled correctly.
-
-**Whole Word Guesses**
-For whole word guesses, where the player attempts to guess the entire word, the input validation includes:
-
-Non-Empty Input: Similar to single letter guesses, the input must not be empty.
-
-Alphabetic Characters: The input must consist of alphabetic characters only.
-
-Length Check: The length of the input can be greater than one, but it should still be a valid word.
-
-**User Feedback**
-In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.
-
-By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for players of all skill levels.
+- **Difficulty Selection:** Whenever the player fails to select a valid input at the difficulty selection, the game defaults into 
