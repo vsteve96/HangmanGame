@@ -1,6 +1,6 @@
 def display_hangman(incorrect_guesses, max_incorrect_guesses, difficulty='medium'):
     """
-    Displays the visual representation of the hangman based on incorrect guesses.
+    Displays the visual representation of the hangman based on difficulty and incorrect guesses.
 
     The function prints hangman art corresponding to incorrect guesses.
     If the limit is reached, a game-over message is displayed.

@@ -31,7 +31,7 @@ Clone the repository to your local machine and run the script using a Python int
 
 **Input Validations**
 
-Ensuring a smooth and error-free user experience is a crucial aspect of the Hangman game development. The input validation process has been carefully implemented to handle various scenarios and provide helpful feedback to the player.
+Ensuring a smooth and error-free user experience was a crucial aspect of the Hangman game development. The input validation process has been carefully implemented to handle various scenarios and provide helpful feedback to the player.
 
 **Single Letter Guesses**
 
@@ -65,6 +65,7 @@ def get_guess():
             return guess
         else:
             print("Invalid input. Please enter a single letter or the whole word.")
+```
 
 **Single Letter Guesses**
 Players are prompted to enter a letter when making single letter guesses. The input validation for single letter guesses covers the following:

@@ -27,7 +27,7 @@ def instructions():
     print("Be careful! You have limited attempts before you get hanged!")
     print("You can choose from three difficulty levels, each with a different number of guessing attempts.")
     print("Good luck!\n" + colorama.Style.RESET_ALL)
-
+    
 def choose_difficulty():
     print(colorama.Style.BRIGHT + colorama.Back.BLACK + colorama.Fore.MAGENTA + "Choose a difficulty level:")
     print("1: Easy (12 guesses)")
@@ -35,19 +35,19 @@ def choose_difficulty():
     print("3: Hard (8 guesses)")
 
     difficulty_choice = input("Enter your choice (1, 2, or 3): " + colorama.Style.RESET_ALL)
-    try:
-        if difficulty_choice == '1':
-            return 12
-        elif difficulty_choice == '2':
-            return 10
-        elif difficulty_choice == '3':
-            return 8
-    except ValueError as e:
-        print(e)
-        return choose_difficulty
+
+    if difficulty_choice == '1':
+        return 12
+    elif difficulty_choice == '2':
+        return 10
+    elif difficulty_choice == '3':
+        return 8
+    else:
+        print("Invalid choice. Defaulting to Medium difficulty.")
+        return 10
 
 def display_game_state(secret_word, guessed_letters, guessed_words,
-                       incorrect_guesses, max_incorrect_guesses, difficulty):
+                       incorrect_guesses, max_incorrect_guesses):
     # Display the current state of the secret word with guessed letters revealed
     current_display = display_word(secret_word, guessed_letters)
     # Format the display of guessed words with commas
@@ -66,12 +66,12 @@ def display_game_state(secret_word, guessed_letters, guessed_words,
           f"Guesses: {guessed_letters_display}{', ' if guessed_letters_display and guessed_words_display else ''}{guessed_words_display}")
     # Print the number of incorrect guesses remaining and display the hangman
     print(f"Incorrect guesses remaining: {max_incorrect_guesses - incorrect_guesses}")
-    display_hangman(incorrect_guesses, max_incorrect_guesses, difficulty)
-
+    display_hangman(incorrect_guesses, max_incorrect_guesses, difficulty='easy)
 
 def hangman():
     """
     The main hangman game logic.
+
     """
     print("\nWelcome to Hangman!")
 
@@ -91,16 +91,9 @@ def hangman():
         # Set the return value from choose_difficulty function as the maximum 
         # incorrect guesses allowed
         max_incorrect_guesses = choose_difficulty()
-        
-        # Get the chosen difficulty level
-        difficulty = 'easy'  # Default to 'easy'
-        if max_incorrect_guesses == 10:
-            difficulty = 'medium'
-        elif max_incorrect_guesses == 8:
-            difficulty = 'hard'
             
         while incorrect_guesses < max_incorrect_guesses:
-            display_game_state(secret_word, guessed_letters, guessed_words, incorrect_guesses, max_incorrect_guesses, difficulty)
+            display_game_state(secret_word, guessed_letters, guessed_words, incorrect_guesses, max_incorrect_guesses)
 
             guess = get_guess()
                 
@@ -115,6 +108,7 @@ def hangman():
                 
         if incorrect_guesses == max_incorrect_guesses:
             print(f"\nSorry, you ran out of attempts. The correct word was '{secret_word}'.")
+
     elif play_game == 'n':
         print("Game ended. Goodbye!")
         return
