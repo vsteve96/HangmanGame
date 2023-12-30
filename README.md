@@ -53,6 +53,38 @@ For whole word guesses, where the player attempts to guess the entire word, the 
 
 - **Length Check:** The length of the input can be greater than one, but it should still be a valid word.
 
+**The flow of the game**
+
+User Input: show_instructions
+
+The program starts by asking the user if they want to see instructions (show_instructions).
+If the user enters an invalid input, the program repeatedly prompts until a valid input ('y' or 'n') is received.
+Instructions Displayed: instructions()
+
+If the user chose to see instructions, the instructions() function is called to display the game instructions.
+User Input: play_game
+
+The program then asks the user if they want to continue to the game (play_game).
+If the user enters an invalid input, the program repeatedly prompts until a valid input ('y' or 'n') is received.
+Game Initialization
+
+If the user decides to play (play_game == 'y'), the game initializes by choosing a word and setting difficulty.
+Game Loop
+
+The main game loop starts (while incorrect_guesses < max_incorrect_guesses).
+The player makes guesses until they win or run out of attempts.
+Game Outcome
+
+If the player wins, a congratulatory message is displayed, and the loop breaks.
+If the player loses, a message indicating the correct word is displayed.
+Game Termination
+
+If the player chooses not to play (play_game == 'n'), a farewell message is displayed, and the program returns.
+
+*Invalid Input Handling*
+
+If the user enters an invalid input for playing the game (else block), the program repeatedly prompts until a valid input ('y' or 'n') is received.
+
 **User Feedback**
 
 In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.

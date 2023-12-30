@@ -40,24 +40,20 @@ def instructions():
 
 
 def choose_difficulty():
-    print(
-          "Choose a difficulty level:")
+    print("Choose a difficulty level:")
     print("1: Easy (12 guesses)")
     print("2: Medium (10 guesses)")
     print("3: Hard (8 guesses)")
 
-    difficulty_choice = input("Enter your choice (1, 2, or 3): " +
-                              colorama.Style.RESET_ALL)
-    try:
-        if difficulty_choice == '1':
-            return 12
-        elif difficulty_choice == '2':
-            return 10
-        elif difficulty_choice == '3':
-            return 8
-    except ValueError as e:
-        print(e)
-        return choose_difficulty
+    while True:
+        difficulty_choice = input("Enter your choice (1, 2, or 3): ")
+
+        if difficulty_choice in ['1', '2', '3']:
+            return int(difficulty_choice)
+        else:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED +
+                  "Invalid input. Please enter '1', '2', or '3'." +
+                  colorama.Style.RESET_ALL)
 
 
 def display_game_state(secret_word, guessed_letters, guessed_words,
