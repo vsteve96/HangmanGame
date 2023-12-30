@@ -161,7 +161,7 @@ def hangman():
                     if all(letter in guessed_letters for letter in secret_word):
                         print(colorama.Style.BRIGHT + colorama.Fore.GREEN 
                         + f"Congratulations! You guessed the word '{secret_word}'!" + colorama.Style.RESET_ALL)
-                        break
+                        exit()
                 except ValueError as ve:
                     print(f"Invalid input: {ve}")
 

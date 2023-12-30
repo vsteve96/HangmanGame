@@ -139,3 +139,4 @@ Tested difficulty selector:
 - Game correctly chooses the maximum allowed guesses on all difficulty levels
 - Game chooses the correct hangman_parts from the list on all difficulty levels
 **PASS**
+
