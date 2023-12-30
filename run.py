@@ -29,13 +29,13 @@ Please enter a single letter or the whole word." + colorama.Style.RESET_ALL)
 
 def instructions():
     print(colorama.Style.BRIGHT + colorama.Back.BLACK + colorama.Fore.BLUE +
-          "Try to guess the secret word by entering one letter at a time.")
+"Try to guess the secret word by entering one letter at a time.")
     print("(Hint: The secret word is tech-related)")
     print("If you think you know the whole word, \
-          you can enter the entire word.")
+you can enter the entire word.")
     print("Be careful! You have limited attempts before you get hanged!")
     print("You can choose from three difficulty levels, \
-          each with a different number of guessing attempts.")
+each with a different number of guessing attempts.")
     print("Good luck!\n" + colorama.Style.RESET_ALL)
 
 
@@ -88,7 +88,13 @@ def display_game_state(secret_word, guessed_letters, guessed_words,
 
 def hangman():
     """
-    The main hangman game loop
+    The main hangman game loop.
+    - The player is initially prompted to see instructions.
+    - After viewing or skipping instructions, they can choose to continue playing or exit.
+    - The player selects a difficulty level that determines the maximum allowed incorrect guesses.
+    - The game loop continues until the player successfully guesses the word or reaches the maximum
+      incorrect guesses.
+    Invalid inputs are handled with appropriate error messages.
     """
     print("\nWelcome to Hangman!")
 
