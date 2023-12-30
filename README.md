@@ -101,7 +101,9 @@ def get_guess():
 
 By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for the players.
 
-- **Difficulty Selection:** Whenever the player fails to select a valid input at the difficulty selection, the game defaults into 
+**Flowchart**
+
+![flowchart](./images/flowchart.png)
 
 # Hangman Game Testing
 
@@ -112,28 +114,28 @@ Tested incorrect user input and how it was handled by program:
 - *difficulty selection*
 - *starting the game prompt*
 - *wrong input in the game*
-- **PASS**
+**PASS**
 
 Tested starting a new game and winning:
 - Finished and winning by guessing all the letters correctly
 - Finished and winning by guessing the correct word
-- **PASS**
+**PASS**
 
 Tested starting a new game and losing:
 - Finished by losing - no more incorrect guesses remain - game loop correctly returns so player can initiate a new game
-- **PASS**
+**PASS**
 
 Tested guessing with a word instead of a letter
 - Game correctly handles correct and incorrect word guesses:
 - *Incorrect word guess*: game shows the incorrect word guess among guesses
-- *Correct word guess*: game 
-- **PASS**
+- *Correct word guess*: game ends with the congratulation message
+**PASS**
 
 Tested guessing with a word with blank space or special characters within
 - Game informs the user about the incorrect input and prompts to input again
-- **PASS**
+**PASS**
 
 Tested difficulty selector:
 - Game correctly chooses the maximum allowed guesses on all difficulty levels
 - Game chooses the correct hangman_parts from the list on all difficulty levels
-- **PASS**
+**PASS**
