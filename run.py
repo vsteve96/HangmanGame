@@ -17,13 +17,14 @@ def display_word(word, guessed_letters):
 
 
 def get_guess():
+
     while True:
         guess = input("Enter a letter or the whole word: ").lower()
         if guess and (guess.isalpha() and len(guess) >= 1):
             return guess
         else:
-            print("Invalid input. Please enter a single letter \
-or the whole word.")
+            print(colorama.Style.BRIGHT + colorama.Fore.RED + "Invalid input. \
+Please enter a single letter or the whole word." + colorama.Style.RESET_ALL)
 
 
 def instructions():
@@ -39,7 +40,7 @@ def instructions():
 
 
 def choose_difficulty():
-    print(colorama.Style.BRIGHT + colorama.Back.BLACK + colorama.Fore.MAGENTA +
+    print(
           "Choose a difficulty level:")
     print("1: Easy (12 guesses)")
     print("2: Medium (10 guesses)")
@@ -87,21 +88,31 @@ def display_game_state(secret_word, guessed_letters, guessed_words,
 
 def hangman():
     """
-    The main hangman game logic.
+    The main hangman game loop
     """
     print("\nWelcome to Hangman!")
 
     incorrect_guesses = 0
 
     show_instructions = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW
-                              + "Do you want to see the instructions? (y/n): "
-                              + colorama.Style.RESET_ALL).lower()
+                          + "Do you want to see the instructions? (y/n): "
+                          + colorama.Style.RESET_ALL).lower()
+
+    while show_instructions not in ['y', 'n']:
+        print(colorama.Style.BRIGHT + colorama.Fore.RED +
+            "Incorrect input. Please enter 'y' for yes or 'n' for no." +
+            colorama.Style.RESET_ALL)
+        show_instructions = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                                "Do you want to see the instructions? (y/n): " +
+                                colorama.Style.RESET_ALL).lower()
+
     if show_instructions == 'y':
         instructions()
 
     play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
                       "Do you want to continue to the game? (y/n): " +
                       colorama.Style.RESET_ALL).lower()
+
     if play_game == 'y':
 
         secret_word = choose_word()
@@ -126,9 +137,13 @@ def hangman():
                 guess = get_guess()
 
                 if len(guess) == 1:
-                    incorrect_guesses = process_single_letter_guess(guess, secret_word, guessed_letters, incorrect_guesses)
+                    incorrect_guesses = process_single_letter_guess(guess, secret_word, 
+                                                                    guessed_letters, 
+                                                                    incorrect_guesses)
                 elif len(guess) > 1 and guess.isalpha():
-                    incorrect_guesses = process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesses)
+                    incorrect_guesses = process_whole_word_guess(guess, secret_word, 
+                                                                 guessed_words, 
+                                                                 incorrect_guesses)
 
                 if all(letter in guessed_letters for letter in secret_word):
                     print(colorama.Style.BRIGHT + colorama.Fore.GREEN 
@@ -136,13 +151,22 @@ def hangman():
                     break
             except ValueError as ve:
                 print(f"Invalid input: {ve}")
+
         if incorrect_guesses == max_incorrect_guesses:
-            print(f"\nSorry, you ran out of attempts. The correct word was \
-'{secret_word}'.")
+            print(f"\nSorry, you ran out of attempts. The correct word was '{secret_word}'.")
+
     elif play_game == 'n':
         print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
               "Game ended. Goodbye!" + colorama.Style.RESET_ALL)
         return
+    else:
+        while play_game not in ['y', 'n']:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED \
++ "Incorrect input. Please enter 'y' to continue or 'n' to exit." \
++ colorama.Style.RESET_ALL)
+            play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                            "Do you want to continue to the game? (y/n): " +
+                            colorama.Style.RESET_ALL).lower() 
 
 
 def process_single_letter_guess(guess, secret_word, guessed_letters,
@@ -150,11 +174,12 @@ def process_single_letter_guess(guess, secret_word, guessed_letters,
     """
     Handles the single letter guesses, by substituting underscores with
     the correctly guessed letter(s)and incrementing the incorrect guesses
-    counter in case of incorrect guesses
+    value in case of incorrect guesses  - thereby reducing incorrect guesses
+    remaining value from display_game_state function
     """
     if guess in guessed_letters:
-        print(colorama.Style.BRIGHT + colorama.Fore.RED +
-              "You've already made that guess. Please make another guess."
+        print(colorama.Style.BRIGHT + colorama.Fore.RED 
+              + "You've already made that guess. Please make another guess."
               + colorama.Style.RESET_ALL)
         return incorrect_guesses
     else:
