@@ -162,9 +162,13 @@ def start_new_game():
                   "Incorrect input. Please enter 'y' to start a new game or 'n' to exit." +
                   colorama.Style.RESET_ALL)
 
+
 def play_hangman_game():
     while True:
-        secret_word, guessed_letters, guessed_words, incorrect_guesses = choose_word(), [], [], 0
+        secret_word = choose_word()
+        guessed_letters = []
+        guessed_words = []
+        incorrect_guesses = 0
         max_incorrect_guesses = choose_difficulty()
         difficulty = 'easy' if max_incorrect_guesses == 12 else 'medium' if max_incorrect_guesses == 10 else 'hard'
 
@@ -178,6 +182,9 @@ def play_hangman_game():
                     incorrect_guesses = process_single_letter_guess(guess, secret_word, guessed_letters, incorrect_guesses)
                 elif len(guess) > 1 and guess.isalpha():
                     incorrect_guesses = process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesses)
+
+                if incorrect_guesses == -1:  # Player has won
+                    break
 
                 if all(letter in guessed_letters for letter in secret_word):
                     print(colorama.Style.BRIGHT + colorama.Fore.GREEN +
@@ -203,9 +210,6 @@ def play_hangman_game():
         show_game_instructions()  # Ask if the player wants to see instructions
         print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
               "Starting a new game..." + colorama.Style.RESET_ALL)
-
-
-
 
 def hangman():
     """
@@ -244,6 +248,50 @@ def hangman():
                     colorama.Style.RESET_ALL)
 
 
+import random
+import colorama
+from hangman_parts import display_hangman
+
+colorama.init()
+
+
+def choose_word():
+    """
+    Chooses a random word from a predefined list of words.
+    Returns:
+        str: The chosen word.
+    """
+    words = ["python", "hangman", "developer", "programming", "coding",
+             "javascript", "software", "scripts", "terminal", "ubuntu"]
+    return random.choice(words)
+
+
+def display_word(word, guessed_letters):
+    """
+    Displays the current state of the word, revealing guessed letters.
+    word (str): The secret word to be guessed.
+    guessed_letters (list): List of letters that have been guessed.
+    Returns a str: the word with underscores for unguessed letters.
+    """
+    return ' '.join(letter if letter in guessed_letters else '_'
+                   for letter in word)
+
+
+def get_guess():
+    """
+    Gets a valid user input for a letter or the entire word.
+    Returns str: The user's input.
+    """
+    while True:
+        guess = input("Enter a letter or the whole word: ").lower()
+        if guess and (guess.isalpha() and len(guess) >= 1):
+            return guess
+        else:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED + "Invalid input. \
+Please enter a single letter or the whole word." + colorama.Style.RESET_ALL)
+
+
+
 def process_single_letter_guess(guess, secret_word, guessed_letters,
                                 incorrect_guesses):
     """
@@ -270,14 +318,17 @@ def process_whole_word_guess(guess, secret_word, guessed_words,
     """
     Handles full word guesses, by comparing the input value
     with the secret word, handles already guessed words by informing the user
-    with the already guessed word and exiting the loop in case
-    of correct guess.
+    with the already guessed word and providing an option to play again
+    in case of a correct guess.
+    Returns:
+        int: -1 if the player has won, 0 if the player wants to play again, otherwise returns incorrect_guesses.
     """
     if guess == secret_word:
         print(colorama.Style.BRIGHT + colorama.Fore.GREEN +
               "Congratulations! You guessed the word!" +
               colorama.Style.RESET_ALL)
-        exit()
+        return -1  # Flag indicating the player has won
+
     elif guess in guessed_words:
         print(colorama.Style.BRIGHT + colorama.Fore.RED +
               "You've already guessed that word. Try again." +
@@ -285,9 +336,11 @@ def process_whole_word_guess(guess, secret_word, guessed_words,
         return incorrect_guesses
     else:
         print(colorama.Style.BRIGHT + colorama.Fore.RED +
-              "Incorrect guess. Try again." + colorama.Style.RESET_ALL)
+              "Incorrect guess. Try again." +
+              colorama.Style.RESET_ALL)
         guessed_words.append(guess)
         return incorrect_guesses + 1
+
 
 
 if __name__ == "__main__":
