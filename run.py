@@ -164,34 +164,20 @@ def start_new_game():
 
 def play_hangman_game():
     while True:
-        secret_word = choose_word()
-        guessed_letters = []
-        guessed_words = []
-        incorrect_guesses = 0
-
+        secret_word, guessed_letters, guessed_words, incorrect_guesses = choose_word(), [], [], 0
         max_incorrect_guesses = choose_difficulty()
-
-        difficulty = 'easy'  # Default to 'easy'
-        if max_incorrect_guesses == 10:
-            difficulty = 'medium'
-        elif max_incorrect_guesses == 8:
-            difficulty = 'hard'
+        difficulty = 'easy' if max_incorrect_guesses == 12 else 'medium' if max_incorrect_guesses == 10 else 'hard'
 
         while incorrect_guesses < max_incorrect_guesses:
-            display_game_state(secret_word, guessed_letters, guessed_words,
-                               incorrect_guesses, max_incorrect_guesses, difficulty)
+            display_game_state(secret_word, guessed_letters, guessed_words, incorrect_guesses, max_incorrect_guesses, difficulty)
 
             try:
                 guess = get_guess()
 
                 if len(guess) == 1:
-                    incorrect_guesses = process_single_letter_guess(guess, secret_word,
-                                                                    guessed_letters,
-                                                                    incorrect_guesses)
+                    incorrect_guesses = process_single_letter_guess(guess, secret_word, guessed_letters, incorrect_guesses)
                 elif len(guess) > 1 and guess.isalpha():
-                    incorrect_guesses = process_whole_word_guess(guess, secret_word,
-                                                                 guessed_words,
-                                                                 incorrect_guesses)
+                    incorrect_guesses = process_whole_word_guess(guess, secret_word, guessed_words, incorrect_guesses)
 
                 if all(letter in guessed_letters for letter in secret_word):
                     print(colorama.Style.BRIGHT + colorama.Fore.GREEN +
@@ -202,7 +188,8 @@ def play_hangman_game():
             except ValueError as ve:
                 print(f"Invalid input: {ve}")
 
-        display_game_over_message(secret_word)
+        if incorrect_guesses >= max_incorrect_guesses:
+            display_game_over_message(secret_word)
 
         play_again = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
                            "Do you want to play again? (y/n): " +
@@ -212,13 +199,12 @@ def play_hangman_game():
             print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
                   "Game ended." + colorama.Style.RESET_ALL)
             exit()
-        else:
-            show_game_instructions()  # Ask if the player wants to see instructions
 
-            # Automatically start a new game after showing instructions
-            print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                  "Starting a new game..." + colorama.Style.RESET_ALL)
-            continue
+        show_game_instructions()  # Ask if the player wants to see instructions
+        print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+              "Starting a new game..." + colorama.Style.RESET_ALL)
+
+
 
 
 def hangman():
