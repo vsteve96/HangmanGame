@@ -6,18 +6,32 @@ colorama.init()
 
 
 def choose_word():
+    """
+    Chooses a random word from a predefined list of words.
+    Returns:
+        str: The chosen word.
+    """
     words = ["python", "hangman", "developer", "programming", "coding",
              "javascript", "software", "scripts", "terminal", "ubuntu"]
     return random.choice(words)
 
 
 def display_word(word, guessed_letters):
+    """
+    Displays the current state of the word, revealing guessed letters.
+    word (str): The secret word to be guessed.
+    guessed_letters (list): List of letters that have been guessed.
+    Returns a str: the word with underscores for unguessed letters.
+    """
     return ' '.join(letter if letter in guessed_letters else '_'
                    for letter in word)
 
 
 def get_guess():
-
+    """
+    Gets a valid user input for a letter or the entire word.
+    Returns str: The user's input.
+    """
     while True:
         guess = input("Enter a letter or the whole word: ").lower()
         if guess and (guess.isalpha() and len(guess) >= 1):
@@ -28,6 +42,9 @@ Please enter a single letter or the whole word." + colorama.Style.RESET_ALL)
 
 
 def instructions():
+    """
+    Displays game instructions.
+    """
     print(colorama.Style.BRIGHT + colorama.Back.BLACK + colorama.Fore.BLUE +
 "Try to guess the secret word by entering one letter at a time.")
     print("(Hint: The secret word is tech-related)")
@@ -40,6 +57,11 @@ each with a different number of guessing attempts.")
 
 
 def choose_difficulty():
+    """
+    Allows the user to choose the game difficulty level.
+    Returns int: The maximum number of incorrect guesses allowed.
+    Which is then used on the hangman_parts.py to display the hangman parts.
+    """
     print("Choose a difficulty level:")
     print("1: Easy (12 guesses)")
     print("2: Medium (10 guesses)")
@@ -62,12 +84,17 @@ def choose_difficulty():
 
 def display_game_state(secret_word, guessed_letters, guessed_words,
                        incorrect_guesses, max_incorrect_guesses, difficulty):
-    # Display the current state of the secret word
-    # with guessed letters revealed
+    """
+    Displays the current state of the game, including the word, guessed letters, and hangman.
+    secret_word (str): The secret word to be guessed.
+    guessed_letters (list): List of letters that have been guessed.
+    guessed_words (list): List of words that have been guessed.
+    incorrect_guesses (int): Number of incorrect guesses made so far.
+    max_incorrect_guesses (int): Maximum allowed incorrect guesses.
+    difficulty (str): Difficulty level of the game.
+    """
     current_display = display_word(secret_word, guessed_letters)
-    # Format the display of guessed words with commas
     guessed_words_display = ', '.join(guessed_words) if guessed_words else ''
-    # Format the display of guessed letters with commas
     guessed_letters_display = ', '.join(guessed_letters)
 
     print(f"\nWord: {current_display}")
@@ -76,17 +103,19 @@ def display_game_state(secret_word, guessed_letters, guessed_words,
     and guessed_words_display are not empty.
     Otherwise, it adds an empty string.
     """
-    # Print guessed letters and guessed words with appropriate formatting
+
     print(colorama.Style.BRIGHT + colorama.Back.BLACK + colorama.Fore.BLUE +
           f"Guesses: {guessed_letters_display}{', ' if guessed_letters_display and guessed_words_display else ''} "
           f"{guessed_words_display}")
 
-    # Print the number of incorrect guesses remaining and display the hangman
     print(f"Incorrect guesses remaining: {max_incorrect_guesses - incorrect_guesses}")
     display_hangman(incorrect_guesses, max_incorrect_guesses, difficulty)
 
 
 def show_game_instructions():
+    """
+    Displays the option to show game instructions and shows them if requested by the user.
+    """
     print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
           "Do you want to see the instructions? (y/n): " +
           colorama.Style.RESET_ALL)
@@ -105,65 +134,21 @@ def show_game_instructions():
         instructions()
 
 
-def play_hangman_game():
-    secret_word = choose_word()
-    guessed_letters = []
-    guessed_words = []
-    incorrect_guesses = 0
-
-    max_incorrect_guesses = choose_difficulty()
-
-    difficulty = 'easy'  # Default to 'easy'
-    if max_incorrect_guesses == 10:
-        difficulty = 'medium'
-    elif max_incorrect_guesses == 8:
-        difficulty = 'hard'
-
-    while incorrect_guesses < max_incorrect_guesses:
-        display_game_state(secret_word, guessed_letters, guessed_words,
-                           incorrect_guesses, max_incorrect_guesses, difficulty)
-
-        try:
-            guess = get_guess()
-
-            if len(guess) == 1:
-                incorrect_guesses = process_single_letter_guess(guess, secret_word,
-                                                                guessed_letters,
-                                                                incorrect_guesses)
-            elif len(guess) > 1 and guess.isalpha():
-                incorrect_guesses = process_whole_word_guess(guess, secret_word,
-                                                             guessed_words,
-                                                             incorrect_guesses)
-
-            if all(letter in guessed_letters for letter in secret_word):
-                print(colorama.Style.BRIGHT + colorama.Fore.GREEN +
-                      f"Congratulations! You guessed the word '{secret_word}'!" +
-                      colorama.Style.RESET_ALL)
-                exit()
-
-        except ValueError as ve:
-            print(f"Invalid input: {ve}")
-
-    display_game_over_message(secret_word)
+def display_game_over_message(secret_word):
+    """
+    Displays a game over message with the correct secret word.
+    secret_word (str): The correct secret word.
+    """
+    print(f"\nSorry, you ran out of attempts. The correct word was '{secret_word}'.")
 
 
-def hangman():
-    print("\nWelcome to Hangman!")
-
+def start_new_game():
     show_game_instructions()
 
     while True:
         play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                          "Do you want to continue to the game? (y/n): " +
+                          "Do you want to start a new game? (y/n): " +
                           colorama.Style.RESET_ALL).lower()
-
-        while play_game not in ['y', 'n']:
-            print(colorama.Style.BRIGHT + colorama.Fore.RED +
-                  "Incorrect input. Please enter 'y' to continue or 'n' to exit." +
-                  colorama.Style.RESET_ALL)
-            play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                              "Do you want to continue to the game? (y/n): " +
-                              colorama.Style.RESET_ALL).lower()
 
         if play_game == 'n':
             print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
@@ -171,10 +156,106 @@ def hangman():
             return
         elif play_game == 'y':
             play_hangman_game()
+            return
         else:
             print(colorama.Style.BRIGHT + colorama.Fore.RED +
-                  "Incorrect input. Please enter 'y' to continue or 'n' to exit." +
+                  "Incorrect input. Please enter 'y' to start a new game or 'n' to exit." +
                   colorama.Style.RESET_ALL)
+
+def play_hangman_game():
+    while True:
+        secret_word = choose_word()
+        guessed_letters = []
+        guessed_words = []
+        incorrect_guesses = 0
+
+        max_incorrect_guesses = choose_difficulty()
+
+        difficulty = 'easy'  # Default to 'easy'
+        if max_incorrect_guesses == 10:
+            difficulty = 'medium'
+        elif max_incorrect_guesses == 8:
+            difficulty = 'hard'
+
+        while incorrect_guesses < max_incorrect_guesses:
+            display_game_state(secret_word, guessed_letters, guessed_words,
+                               incorrect_guesses, max_incorrect_guesses, difficulty)
+
+            try:
+                guess = get_guess()
+
+                if len(guess) == 1:
+                    incorrect_guesses = process_single_letter_guess(guess, secret_word,
+                                                                    guessed_letters,
+                                                                    incorrect_guesses)
+                elif len(guess) > 1 and guess.isalpha():
+                    incorrect_guesses = process_whole_word_guess(guess, secret_word,
+                                                                 guessed_words,
+                                                                 incorrect_guesses)
+
+                if all(letter in guessed_letters for letter in secret_word):
+                    print(colorama.Style.BRIGHT + colorama.Fore.GREEN +
+                          f"Congratulations! You guessed the word '{secret_word}'!" +
+                          colorama.Style.RESET_ALL)
+                    break
+
+            except ValueError as ve:
+                print(f"Invalid input: {ve}")
+
+        display_game_over_message(secret_word)
+
+        play_again = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                           "Do you want to play again? (y/n): " +
+                           colorama.Style.RESET_ALL).lower()
+
+        if play_again != 'y':
+            print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                  "Game ended." + colorama.Style.RESET_ALL)
+            exit()
+        else:
+            show_game_instructions()  # Ask if the player wants to see instructions
+
+            # Automatically start a new game after showing instructions
+            print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                  "Starting a new game..." + colorama.Style.RESET_ALL)
+            continue
+
+
+def hangman():
+    """
+    Initiates the Hangman game.
+    Displays welcome messages, provides the option to view instructions,
+    and enters the main game loop where players can choose to continue playing or exit.
+    The game loop handles the selection of difficulty levels, the initiation of each game round,
+    and the conclusion of the game with appropriate messages.
+    """
+     
+    print("\nWelcome to Hangman!")
+    show_game_instructions()
+
+    while True:
+        play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                            "Do you want to continue to the game? (y/n): " +
+                            colorama.Style.RESET_ALL).lower()
+
+        while play_game not in ['y', 'n']:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED +
+                    "Incorrect input. Please enter 'y' to continue or 'n' to exit." +
+                    colorama.Style.RESET_ALL)
+            play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                                "Do you want to continue to the game? (y/n): " +
+                                colorama.Style.RESET_ALL).lower()
+
+        if play_game == 'n':
+            print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
+                    "Game ended. Goodbye!" + colorama.Style.RESET_ALL)
+            return
+        elif play_game == 'y':
+            play_hangman_game()
+        else:
+            print(colorama.Style.BRIGHT + colorama.Fore.RED +
+                    "Incorrect input. Please enter 'y' to continue or 'n' to exit." +
+                    colorama.Style.RESET_ALL)
 
 
 def process_single_letter_guess(guess, secret_word, guessed_letters,
