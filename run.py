@@ -12,7 +12,9 @@ def choose_word():
         str: The chosen word.
     """
     words = ["python", "hangman", "developer", "programming", "coding",
-             "javascript", "software", "scripts", "terminal", "ubuntu"]
+             "javascript", "software", "scripts", "terminal", "ubuntu",
+             "linux", "kernel", "compiler", "interpreter", "algorithm",
+             "database", "server", "network", "security", "encryption"]
     return random.choice(words)
 
 
@@ -164,6 +166,7 @@ def start_new_game():
 
 
 def play_hangman_game():
+    play_count = 0  # Initialize play count
     while True:
         secret_word = choose_word()
         guessed_letters = []
@@ -207,9 +210,14 @@ def play_hangman_game():
                   "Game ended." + colorama.Style.RESET_ALL)
             exit()
 
-        show_game_instructions()  # Ask if the player wants to see instructions
+        # Ask for instructions if it's the first or second play
+        if play_count < 1:
+            show_game_instructions()
+
         print(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
               "Starting a new game..." + colorama.Style.RESET_ALL)
+
+        play_count += 1  # Increment play count
 
 def hangman():
     """
@@ -246,13 +254,6 @@ def hangman():
             print(colorama.Style.BRIGHT + colorama.Fore.RED +
                     "Incorrect input. Please enter 'y' to continue or 'n' to exit." +
                     colorama.Style.RESET_ALL)
-
-
-import random
-import colorama
-from hangman_parts import display_hangman
-
-colorama.init()
 
 
 def choose_word():
