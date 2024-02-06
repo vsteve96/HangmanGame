@@ -2,7 +2,15 @@
 
 ## Overview
 
-Welcome to the Hangman Game! This project implements the classic Hangman word guessing game in Python. The game challenges players to guess a secret word by suggesting letters or guessing the entire word. Incorrect guesses lead to the gradual drawing of a hangman, and players must solve the word before running out of attempts.
+Welcome to the Hangman Game! This project implements the classic Hangman word guessing game in Python. The game challenges players to guess a secret word by suggesting letters or guessing the entire word. 
+Incorrect guesses lead to the gradual drawing of a hangman, and players must solve the word before running out of attempts.
+
+### Engaging Gameplay
+
+- Enjoy the thrill of guessing words letter by letter or trying to guess the entire word at once.
+- Test your vocabulary and word recognition skills in a challenging yet enjoyable way.
+- Multiple difficulty levels allow players to choose the level of challenge that suits them best.
+- Perfect for killing time during commutes, waiting in line, or simply relaxing at home.
 
 ## Features
 
@@ -26,6 +34,35 @@ Welcome to the Hangman Game! This project implements the classic Hangman word gu
 ## Getting Started
 
 Clone the repository to your local machine and run the script using a Python interpreter. Ensure you have the required dependencies, including the `hangman_parts` module for displaying the hangman.
+
+## Deployment Process
+
+Follow these steps to deploy the Hangman game project:
+
+### 1. Clone the Repository
+
+Clone the repository to your local machine using Git:
+
+```bash```
+git clone https://github.com/vsteve96/hangman.git
+
+
+# Dependencies
+
+- **blinker** (version 1.7.0)
+- **click** (version 8.1.7)
+- **colorama** (version 0.4.6)
+- **flask** (version 3.0.1)
+- **importlib-metadata** (version 7.0.1)
+- **itsdangerous** (version 2.1.2)
+- **Jinja2** (version 3.1.3)
+- **MarkupSafe** (version 2.1.4)
+- **werkzeug** (version 3.0.1)
+- **zipp** (version 3.17.0)
+
+- To install these dependencies simply use pip:
+
+```pip install -r requirements.txt```
 
 # Development Process
 
@@ -61,19 +98,29 @@ The program starts by asking the user if they want to see instructions (show_ins
 If the user enters an invalid input, the program repeatedly prompts until a valid input ('y' or 'n') is received.
 Instructions Displayed: instructions()
 
+![Instructions](../images/instructions.png)
+
 If the user chose to see instructions, the instructions() function is called to display the game instructions.
 User Input: play_game
+
+![Incorrect_input](../images/incorrect_input.png)
 
 The program then asks the user if they want to continue to the game (play_game).
 If the user enters an invalid input, the program repeatedly prompts until a valid input ('y' or 'n') is received.
 Game Initialization
 
+![Continue](../images/continue.png)
+
 If the user decides to play (play_game == 'y'), the game initializes by choosing a word and setting difficulty.
 Game Loop
+
+![Game](../images/game.png)
 
 The main game loop starts (while incorrect_guesses < max_incorrect_guesses).
 The player makes guesses until they win or run out of attempts.
 Game Outcome
+
+![Congratulations](../images/congratulations.png)
 
 If the player wins, a congratulatory message is displayed, and the loop breaks.
 If the player loses, a message indicating the correct word is displayed.
@@ -81,29 +128,22 @@ Game Termination
 
 If the player chooses not to play (play_game == 'n'), a farewell message is displayed, and the program returns.
 
+![Farewell](../images/farewell.png)
+
+**User Feedback**
 *Invalid Input Handling*
 
 If the user enters an invalid input for playing the game (else block), the program repeatedly prompts until a valid input ('y' or 'n') is received.
 
-**User Feedback**
+![Invalid_input](../images/invalid_input.png)
 
 In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.
-
-```python
-def get_guess():
-    while True:
-        guess = input("Enter a letter or the whole word: ").lower()
-        if guess and ((guess.isalpha() and len(guess) == 1) or (len(guess) > 1 and guess.isalpha())):
-            return guess
-        else:
-            print("Invalid input. Please enter a single letter or the whole word.")
-```
 
 By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for the players.
 
 **Flowchart**
 
-![flowchart](./images/flowchart.png)
+![flowchart](../images/flowchart.png)
 
 # Hangman Game Testing
 

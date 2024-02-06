@@ -158,6 +158,11 @@ def display_game_over_message(secret_word):
 
 
 def start_new_game():
+    """
+    Starts a new game of Hangman. This function displays the game instructions,
+    asks the user if they want to start a new game, and either starts the game
+    or ends the program based on the user's input.
+    """
     show_game_instructions()
 
     while True:
@@ -184,6 +189,11 @@ def start_new_game():
 
 
 def ask_to_play_again():
+    """
+    Asks the user if they want to play the game again. This function continues
+    to ask until the user provides a valid input ('y' or 'n'), and then returns
+    the user's decision.
+    """
     while True:
         play_again = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
                            "Do you want to play again? (y/n): " +
@@ -203,6 +213,13 @@ def ask_to_play_again():
 
 
 def play_hangman_game():
+    """
+    Plays a game of Hangman. This function initializes the game state, chooses
+    a secret word, and enters a game loop where the user guesses letters or the
+    whole word. The game continues until the user has made too many incorrect
+    guesses or has guessed the secret word. After the game, the user is asked
+    if they want to play again.
+    """
     play_count = 0  # Initialize play count
     while True:
         secret_word = choose_word()
