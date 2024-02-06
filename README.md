@@ -60,7 +60,7 @@ git clone https://github.com/vsteve96/hangman.git
 - **werkzeug** (version 3.0.1)
 - **zipp** (version 3.17.0)
 
-- To install these dependencies simply use pip:
+#### To install these dependencies simply use pip:
 
 ```pip install -r requirements.txt```
 
@@ -94,89 +94,80 @@ For whole word guesses, where the player attempts to guess the entire word, the 
 
 User Input: show_instructions
 
-The program starts by asking the user if they want to see instructions (show_instructions).
+- The program starts by asking the user if they want to see instructions (show_instructions).
 If the user enters an invalid input, the program repeatedly prompts until a valid input ('y' or 'n') is received.
 Instructions Displayed: instructions()
 
-![Instructions](../images/instructions.png)
+![Instructions](/images/instructions.png)
 
-If the user chose to see instructions, the instructions() function is called to display the game instructions.
+- If the user chose to see instructions, the instructions() function is called to display the game instructions.
 User Input: play_game
 
-![Incorrect_input](../images/incorrect_input.png)
+![Incorrect_input](/images/incorrect_input.png)
 
-The program then asks the user if they want to continue to the game (play_game).
+- The program then asks the user if they want to continue to the game (play_game).
 If the user enters an invalid input, the program repeatedly prompts until a valid input ('y' or 'n') is received.
 Game Initialization
 
-![Continue](../images/continue.png)
+![Continue](/images/continue.png)
 
-If the user decides to play (play_game == 'y'), the game initializes by choosing a word and setting difficulty.
+- If the user decides to play (play_game == 'y'), the game initializes by choosing a word and setting difficulty.
 Game Loop
 
-![Game](../images/game.png)
+![Game](/images/game.png)
 
-The main game loop starts (while incorrect_guesses < max_incorrect_guesses).
+- The main game loop starts (while incorrect_guesses < max_incorrect_guesses).
 The player makes guesses until they win or run out of attempts.
 Game Outcome
 
-![Congratulations](../images/congratulations.png)
+![Congratulations](/images/congratulations.png)
 
-If the player wins, a congratulatory message is displayed, and the loop breaks.
+- If the player wins, a congratulatory message is displayed, and the loop breaks.
 If the player loses, a message indicating the correct word is displayed.
 Game Termination
 
-If the player chooses not to play (play_game == 'n'), a farewell message is displayed, and the program returns.
+- If the player chooses not to play (play_game == 'n'), a farewell message is displayed, and the program returns.
 
-![Farewell](../images/farewell.png)
+![Farewell](/images/farewell.png)
 
-**User Feedback**
+## User Feedback
 *Invalid Input Handling*
 
-If the user enters an invalid input for playing the game (else block), the program repeatedly prompts until a valid input ('y' or 'n') is received.
+- If the user enters an invalid input for playing the game (else block), the program repeatedly prompts until a valid input ('y' or 'n') is received.
 
-![Invalid_input](../images/invalid_input.png)
+![Invalid_input](/images/invalid_input.png)
 
-In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.
+- In case of invalid input, players receive informative error messages guiding them on the correct input format. This ensures that players understand why their input was rejected and encourages them to provide valid input.
 
-By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for the players.
+- By implementing robust input validations, the development process aims to enhance user experience, prevent unintended errors, and make the Hangman game more enjoyable for the players.
 
 **Flowchart**
 
-![flowchart](../images/flowchart.png)
+![flowchart](/images/flowchart.png)
 
-# Hangman Game Testing
+**Testing**
 
-*Scenarios tested*:
+| Test Case Description | Expected Outcome | Testing Performed | Result | Pass/Fail |
+| ---------| ---------| ---------| ---------| ---------|
+| Verify game starts with asking to show the instructions    |     The game's first 2 initiations should prompt the see the instructions question  |     Initiated game, restarted 4 rounds, played 5 rounds altogether    |     The game showed the instructions prompt at the first 2 rounds, but didn't from the 3rd round as intended    |     Pass     |
+| Verify game handles incorrect input at the instructions prompt    |     The program should handle incorrect input at instructions prompt  |     Initiated game, gave incorrect input for instructions prompt    |     The program returned a string, informing that I should input either 'y' or 'n' at the instructions prompt     |     Pass     |
+| Verify game asks if the player wants to continue after showing the instructions    |     After 'y' input the game should initiate, after 'n', the game should exit   |     Tested both outcomes     |     After 'y' input the game initiated, after 'n' the game quit     |     Pass     |
+| Verify game handles incorrect input at continue prompt    |     The program should handle incorrect input at continue prompt   |     Initiated game, gave incorrect input for continue prompt     |     The program returned a string, informing that I should input either 'y' or 'n' at the continue prompt     |     Pass     |
+| Guessing a valid letter guess    |     The letter should be revealed within the word if the secret word contains it    |     Guessed a valid letter, contained in the word     |     The letter(s) revealed within the word, removing the initial underscore(s) from that spot     |     Pass     |
+| Guessing an invalid letter guess    |     The game should prompt for a valid letter guess    |     Guessed an invalid guess, tested with symbols and numbers     |     The game returned a string, informing that it's an invalid input and prompt to enter a single letter or the whole word.     |     Pass     |
+| Guessing an incorrect letter guess, that the secret word does not contain  |     The hangman display should progress one step, the incorrect guesses counter should also progress, therefore reducing the max number of guesses by 1     |     Guessed an incorrect guess     |     The hangman display progressed one step, the max number of guesses reduced by one     |     Pass     |
+| Guessing an invalid word guess, that is not in the allowed format |     The game should prompt for a valid guess     |     Guessed an invalid word guess     |     The game returned a string, informing that it's an invalid input and prompt to enter a single letter or the whole word.     |     Pass     |
+| Guessing an incorrect word guess, that is not the secret word |     The hangman display should progress one step, the incorrect guesses counter should also progress, therefore reducing the max number of guesses by 1     |     Guessed an incorrect word guess that is not the secret word    |     The hangman display progressed one step, the max number of guesses reduced by one     |     Pass     |
+| Word populated  |     The word is displayed from the words array    |    Checked manually the word shown is pulled from the right array     |     The word is displaying from the correct array     |     Pass     |
+| Selecting difficulty level    |     The maximum allowed number of incorrect guesses should match the selected difficulty level.     |     Chose each level option (easy, medium, hard)     |     The maximum allowed number of incorrect guesses matched the chosen difficulty level (easy-12, medium-10, hard-8)     |     Pass     |
+| Finishing the game with reaching the maximum allowed number of incorrect guesses    |     The game should return a string, informing the player about the exceeded maximum allowed number of incorrect guesses, showing the secret word and prompting the new game option    |     Tested on all difficulty levels, reached maximum allowed number of incorrect guesses     |     The game returned the secret word, prompted the player with the new game option     |     Pass      |
+| Finishing the game with correctly guessing the whole secret word    |     The game should return the congratulations string and prompt the new game option.   |     Finished the game by guessing the secret word as a whole.     |     The game congratulated and prompted the new game option     |     Pass     |
+| Finishing the game with correctly guessing the secret word by guessing the correct letters   |     The game should return the congratulations string and prompt the new game option.   |     Finished the game by guessing the secret word one letter at a time     |     The game congratulated and prompted the new game option     |     Pass     |
+| Displaying hangman parts    |    The hangman display should progress one step at each incorrect guess     |     Made multiple incorrect guesses and inspected the hangman progression     |     Tested on each difficulty level, the hangman display progressed correctly  |     Pass      |
+| Testing the new game prompt    |    The game should ask if the player wants to see the instructions again at the first 2 rounds, and after selecting 'y' the game should restart, resetting the hangman progression and incorrect guesses counter     |     Played multiple rounds, selected 'y' and 'n' at the new game prompt     |     Selecting 'y' initiated a new game, resetting everything correctly, selecting 'n' exited the game  |     Pass      |
+| Testing invalid input at the new game prompt    |    The game should handle invalid input at the new game prompt     |     Played multiple rounds, gave invalid input at the new game prompt     |     The game returned the string with the information that the player's input can only be either 'y' or 'n'  |     Pass      |
 
-Tested incorrect user input and how it was handled by program:
-- *on instructions prompt*
-- *difficulty selection*
-- *starting the game prompt*
-- *wrong input in the game*
-**PASS**
+## Accreditation
 
-Tested starting a new game and winning:
-- Finished and winning by guessing all the letters correctly
-- Finished and winning by guessing the correct word
-**PASS**
-
-Tested starting a new game and losing:
-- Finished by losing - no more incorrect guesses remain - game loop correctly returns so player can initiate a new game
-**PASS**
-
-Tested guessing with a word instead of a letter
-- Game correctly handles correct and incorrect word guesses:
-- *Incorrect word guess*: game shows the incorrect word guess among guesses
-- *Correct word guess*: game ends with the congratulation message
-**PASS**
-
-Tested guessing with a word with blank space or special characters within
-- Game informs the user about the incorrect input and prompts to input again
-**PASS**
-
-Tested difficulty selector:
-- Game correctly chooses the maximum allowed guesses on all difficulty levels
-- Game chooses the correct hangman_parts from the list on all difficulty levels
-**PASS**
-
+This Hangman Game project is created and maintained by [Me](https://github.com/vsteve96). Feel free to contribute to the project or provide feedback!
+I'd like to express my gratitude to Graeme Taylor, my mentor, for helping me get through my milestone project work, by his guidance and support.
