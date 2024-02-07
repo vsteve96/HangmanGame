@@ -35,7 +35,7 @@ def get_guess():
     Returns str: The user's input.
     """
     while True:
-        guess = input("Enter a letter or the whole word: ").lower()
+        guess = input("Enter a letter or the whole word: \n").lower()
         if guess and (guess.isalpha() and len(guess) >= 1):
             return guess
         else:
@@ -71,7 +71,7 @@ def choose_difficulty():
     print("3: Hard (8 guesses)")
 
     while True:
-        difficulty_choice = input("Enter your choice (1, 2, or 3): ")
+        difficulty_choice = input("Enter your choice (1, 2, or 3): \n")
 
         if difficulty_choice == '1':
             return 12
@@ -167,7 +167,7 @@ def start_new_game():
 
     while True:
         play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                          "Do you want to start a new game? (y/n): " +
+                          "Do you want to start a new game? (y/n): \n" +
                           colorama.Style.RESET_ALL).lower()
 
         if play_game == 'n':
@@ -196,7 +196,7 @@ def ask_to_play_again():
     """
     while True:
         play_again = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                           "Do you want to play again? (y/n): " +
+                           "Do you want to play again? (y/n): \n" +
                            colorama.Style.RESET_ALL).lower()
 
         if play_again in ['y', 'n']:
@@ -310,7 +310,7 @@ def hangman():
 
     while True:
         play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                          "Do you want to continue to the game? (y/n): " +
+                          "Do you want to continue to the game? (y/n): \n" +
                           colorama.Style.RESET_ALL).lower()
 
         while play_game not in ['y', 'n']:
@@ -321,7 +321,7 @@ def hangman():
                     ) +
                   colorama.Style.RESET_ALL)
             play_game = input(colorama.Style.BRIGHT + colorama.Fore.YELLOW +
-                              "Do you want to continue to the game? (y/n): " +
+                              "Do you want to continue to the game? (y/n): \n" +
                               colorama.Style.RESET_ALL).lower()
 
         if play_game == 'n':
