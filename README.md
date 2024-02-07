@@ -143,7 +143,7 @@ Game Termination
 
 **Flowchart**
 
-![flowchart](/images/flowchart.png)
+![flowchart](/images/flowchart_1.png)
 
 **Testing**
 
@@ -161,11 +161,88 @@ Game Termination
 | Word populated  |     The word is displayed from the words array    |    Checked manually the word shown is pulled from the right array     |     The word is displaying from the correct array     |     Pass     |
 | Selecting difficulty level    |     The maximum allowed number of incorrect guesses should match the selected difficulty level.     |     Chose each level option (easy, medium, hard)     |     The maximum allowed number of incorrect guesses matched the chosen difficulty level (easy-12, medium-10, hard-8)     |     Pass     |
 | Finishing the game with reaching the maximum allowed number of incorrect guesses    |     The game should return a string, informing the player about the exceeded maximum allowed number of incorrect guesses, showing the secret word and prompting the new game option    |     Tested on all difficulty levels, reached maximum allowed number of incorrect guesses     |     The game returned the secret word, prompted the player with the new game option     |     Pass      |
-| Finishing the game with correctly guessing the whole secret word    |     The game should return the congratulations string and prompt the new game option.   |     Finished the game by guessing the secret word as a whole.     |     The game congratulated and prompted the new game option     |     Pass     |
+| Finishing the game with correctly guessing the secret word as a whole word  |     The game should return the congratulations string and prompt the new game option.   |     Finished the game by guessing the secret word as a whole.     |     The game congratulated and prompted the new game option     |     Pass     |
 | Finishing the game with correctly guessing the secret word by guessing the correct letters   |     The game should return the congratulations string and prompt the new game option.   |     Finished the game by guessing the secret word one letter at a time     |     The game congratulated and prompted the new game option     |     Pass     |
 | Displaying hangman parts    |    The hangman display should progress one step at each incorrect guess     |     Made multiple incorrect guesses and inspected the hangman progression     |     Tested on each difficulty level, the hangman display progressed correctly  |     Pass      |
 | Testing the new game prompt    |    The game should ask if the player wants to see the instructions again at the first 2 rounds, and after selecting 'y' the game should restart, resetting the hangman progression and incorrect guesses counter     |     Played multiple rounds, selected 'y' and 'n' at the new game prompt     |     Selecting 'y' initiated a new game, resetting everything correctly, selecting 'n' exited the game  |     Pass      |
 | Testing invalid input at the new game prompt    |    The game should handle invalid input at the new game prompt     |     Played multiple rounds, gave invalid input at the new game prompt     |     The game returned the string with the information that the player's input can only be either 'y' or 'n'  |     Pass      |
+
+
+## Test Case 1
+
+Objective: Ensure game initializes correctly with the appropiate settings.
+
+**Steps taken:**
+
+1. Run the game
+2. Verify that game starts with no guessed letters and no incorrect guesses.
+
+**Expected outcome:** 
+- The game should initialize without any errors and display the initial game state.
+
+**Testing:**
+- Testing by initiating the game
+- Observed the game state upon start
+
+**Result:**
+- The game initialized successfully with the expected initial settings.
+
+Fix:
+- No fix required
+
+## Test Case 2
+Finishing the game with reaching the maximum allowed number of incorrect guesses
+
+**Objective:** Test the game's behavior when the maximum allowed number of incorrect guesses is reached.
+
+**Steps:**
+- Make incorrect guesses until the maximum allowed number is reached.
+
+**Expected Outcome:** The game should end with a defeat message, reveal the correct word, and prompt the player with a new game option.
+
+**Testing:**
+- Reached the maximum allowed number of incorrect guesses on each difficulty level.
+
+**Result:** The game ended with a defeat message, displayed the correct word, and prompted the player with a new game option.
+
+**Fix:** No fix required; the game functioned as intended.
+
+## Test Case 3
+
+**Objective:** Test the functionality of displaying hangman parts based on the number of incorrect guesses on all difficulty levels.
+
+**Steps:**
+- Invoke the display_hangman function with different numbers of incorrect guesses.
+1. Test with 0 incorrect guesses.
+2. Test with 1 incorrect guess.
+3. Test with 2 incorrect guesses.
+4. Test with the maximum allowed incorrect guesses.
+
+**Expected Outcome:** The function should display the corresponding hangman parts based on the number of incorrect guesses, and handle the chosen difficulty level correctly.
+
+- Easy difficulty level:
+1. For 0 incorrect guesses, there should be 11 missing parts on the hangman display.
+2. For 1 incorrect guess, there should be 10 missing parts on the hangman display.
+3. For 2 incorrect guesses, there should be 9 missing parts on the hangman display.
+4. For the maximum allowed incorrect guesses, the complete hangman should be displayed.
+
+- Medium difficulty level:
+1. For 0 incorrect guesses, there should be 9 missing parts on the hangman display.
+2. For 1 incorrect guess, there should be 8 missing parts on the hangman display.
+3. For 2 incorrect guesses, there should be 7 missing parts on the hangman display.
+4. For the maximum allowed incorrect guesses, the complete hangman should be displayed.
+- Hard difficulty level:
+1. For 0 incorrect guesses, there should be 7 missing parts on the hangman display.
+2. For 1 incorrect guess, there should be 6 missing parts on the hangman display.
+3. For 2 incorrect guesses, there should be 5 missing parts on the hangman display.
+4. For the maximum allowed incorrect guesses, the complete hangman should be displayed.
+
+**Testing:**
+- Stepped through the allowed number of guesses, reached the maximum allowed number of incorrect guesses and observed the hangman display progression on each difficulty level.
+
+**Result:** The game handled the hangman display drawing on all difficulty levels correctly.
+
+**Fix:** No fix required; the game functioned as intended.
 
 ## Accreditation
 
